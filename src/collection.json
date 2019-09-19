@@ -1,0 +1,15 @@
+{
+  "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+    "hello": {
+      "description": "Hello schematic.",
+      "factory": "./lib/hello/hello.factory#main",
+      "schema": "./lib/hello/schema.json"
+    },
+    "dynmodule": {
+      "description": "Dynamic module schematic.",
+      "factory": "./lib/dynmodule/dynmodule.factory#main",
+      "schema": "./lib/dynmodule/schema.json"
+    }
+  }
+}

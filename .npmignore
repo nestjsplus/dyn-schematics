@@ -1,0 +1,17 @@
+.git
+
+.npmrc
+.npmignore
+
+.nyc_output/
+coverage/
+
+node_modules/
+test/
+
+# tests
+**/*.test.ts
+
+# add definitions
+!**/*.d.ts
+!*.d.ts
