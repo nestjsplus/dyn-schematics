@@ -46,6 +46,7 @@ function transform(options: ApplicationOptions): ApplicationOptions {
 }
 
 function generate(options: ApplicationOptions): Source {
+  console.log('options.name: ', options.name);
   return apply(url(join('./files' as Path, options.language)), [
     filter(path => {
       if (!options.client) {
@@ -60,6 +61,7 @@ function generate(options: ApplicationOptions): Source {
       ...options,
       lowerCase,
       upperCase,
+      dashToUnderscore,
     }),
     move(options.name),
   ]);
@@ -71,4 +73,8 @@ function lowerCase(str: string): string {
 
 function upperCase(str: string): string {
   return str.toUpperCase();
+}
+
+function dashToUnderscore(str) {
+  return str.replace(/-/g, '_');
 }

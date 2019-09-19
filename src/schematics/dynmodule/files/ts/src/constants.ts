@@ -1,1 +1,1 @@
-export const <%= upperCase(name) %>_OPTIONS = '<%= upperCase(name) %>_OPTIONS';
+export const <%= dashToUnderscore(upperCase(name)) %>_OPTIONS = '<%= dashToUnderscore(upperCase(name)) %>_OPTIONS';

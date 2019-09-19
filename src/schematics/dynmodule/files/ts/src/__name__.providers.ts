@@ -3,7 +3,7 @@ import {
 } from './interfaces';
 
 import {
-  <%= upperCase(name) %>_OPTIONS,
+  <%= dashToUnderscore(upperCase(name)) %>_OPTIONS,
 } from './constants';
 
 export function create<%= classify(name) %>Providers(
@@ -11,7 +11,7 @@ export function create<%= classify(name) %>Providers(
 ) {
   return [
     {
-      provide: <%= upperCase(name) %>_OPTIONS,
+      provide: <%= dashToUnderscore(upperCase(name)) %>_OPTIONS,
       useValue: options,
     },
   ];

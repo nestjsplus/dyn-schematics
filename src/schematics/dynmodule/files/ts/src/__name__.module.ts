@@ -1,7 +1,7 @@
 import { Module, DynamicModule, Provider, Global } from '@nestjs/common';
 import { <%= classify(name) %>Service } from './<%= lowerCase(name) %>.service';
 import {
-  <%= upperCase(name) %>_OPTIONS,
+  <%= dashToUnderscore(upperCase(name)) %>_OPTIONS,
 } from './constants';
 import {
   <%= classify(name) %>Options,
@@ -64,7 +64,7 @@ export class <%= classify(name) %>Module {
   ): Provider {
     if (options.useFactory) {
       return {
-        provide: <%= upperCase(name) %>_OPTIONS,
+        provide: <%= dashToUnderscore(upperCase(name)) %>_OPTIONS,
         useFactory: options.useFactory,
         inject: options.inject || [],
       };
@@ -72,7 +72,7 @@ export class <%= classify(name) %>Module {
 
     // For useExisting...
     return {
-      provide: <%= upperCase(name) %>_OPTIONS,
+  provide: <%= dashToUnderscore(upperCase(name)) %>_OPTIONS,
       useFactory: async (optionsFactory: <%= classify(name) %>OptionsFactory) =>
         await optionsFactory.create<%= classify(name) %>Options(),
       inject: [options.useExisting || options.useClass],

@@ -27,6 +27,7 @@ function transform(options) {
     return target;
 }
 function generate(options) {
+    console.log('options.name: ', options.name);
     return schematics_1.apply(schematics_1.url(core_1.join('./files', options.language)), [
         schematics_1.filter(path => {
             if (!options.client) {
@@ -35,7 +36,8 @@ function generate(options) {
             return true;
         }),
         schematics_1.template(Object.assign({}, core_1.strings, options, { lowerCase,
-            upperCase })),
+            upperCase,
+            dashToUnderscore })),
         schematics_1.move(options.name),
     ]);
 }
@@ -44,4 +46,7 @@ function lowerCase(str) {
 }
 function upperCase(str) {
     return str.toUpperCase();
+}
+function dashToUnderscore(str) {
+    return str.replace(/-/g, '_');
 }
