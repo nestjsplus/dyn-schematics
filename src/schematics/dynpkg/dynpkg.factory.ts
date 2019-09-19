@@ -17,15 +17,21 @@ import {
   DEFAULT_LANGUAGE,
   DEFAULT_VERSION,
 } from '../defaults';
-import { ApplicationOptions } from './dynmodule.schema';
+import { DynPkgOptions } from './dynpkg.schema';
 
-export function main(options: ApplicationOptions): Rule {
+import {
+  lowerCase,
+  upperCase,
+  dashToUnderscore,
+} from '../../utils/string-utils';
+
+export function main(options: DynPkgOptions): Rule {
   options = transform(options);
   return mergeWith(generate(options));
 }
 
-function transform(options: ApplicationOptions): ApplicationOptions {
-  const target: ApplicationOptions = Object.assign({}, options);
+function transform(options: DynPkgOptions): DynPkgOptions {
+  const target: DynPkgOptions = Object.assign({}, options);
 
   target.author = !!target.author ? target.author : DEFAULT_AUTHOR;
   target.description = !!target.description
@@ -45,7 +51,7 @@ function transform(options: ApplicationOptions): ApplicationOptions {
   return target;
 }
 
-function generate(options: ApplicationOptions): Source {
+function generate(options: DynPkgOptions): Source {
   console.log('options.name: ', options.name);
   return apply(url(join('./files' as Path, options.language)), [
     filter(path => {
@@ -65,16 +71,4 @@ function generate(options: ApplicationOptions): Source {
     }),
     move(options.name),
   ]);
-}
-
-function lowerCase(str: string): string {
-  return str.toLocaleLowerCase();
-}
-
-function upperCase(str: string): string {
-  return str.toUpperCase();
-}
-
-function dashToUnderscore(str) {
-  return str.replace(/-/g, '_');
 }

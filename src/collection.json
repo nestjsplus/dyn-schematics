@@ -3,8 +3,8 @@
   "schematics": {
     "dynmodule": {
       "description": "Dynamic module schematic.",
-      "factory": "./lib/dynmodule/dynmodule.factory#main",
-      "schema": "./lib/dynmodule/schema.json"
+      "factory": "./lib/dynpkg/dynmodule.factory#main",
+      "schema": "./lib/dynpkg/schema.json"
     }
   }
 }

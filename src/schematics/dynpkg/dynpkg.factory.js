@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular-devkit/core");
 const schematics_1 = require("@angular-devkit/schematics");
 const defaults_1 = require("../defaults");
+const string_utils_1 = require("../../utils/string-utils");
 function main(options) {
     options = transform(options);
     return schematics_1.mergeWith(generate(options));
@@ -35,18 +36,9 @@ function generate(options) {
             }
             return true;
         }),
-        schematics_1.template(Object.assign({}, core_1.strings, options, { lowerCase,
-            upperCase,
-            dashToUnderscore })),
+        schematics_1.template(Object.assign({}, core_1.strings, options, { lowerCase: string_utils_1.lowerCase,
+            upperCase: string_utils_1.upperCase,
+            dashToUnderscore: string_utils_1.dashToUnderscore })),
         schematics_1.move(options.name),
     ]);
-}
-function lowerCase(str) {
-    return str.toLocaleLowerCase();
-}
-function upperCase(str) {
-    return str.toUpperCase();
-}
-function dashToUnderscore(str) {
-    return str.replace(/-/g, '_');
 }

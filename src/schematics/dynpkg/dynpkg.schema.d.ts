@@ -1,4 +1,4 @@
-export interface ApplicationOptions {
+export interface DynPkgOptions {
   /**
    * The Nest application name.
    */

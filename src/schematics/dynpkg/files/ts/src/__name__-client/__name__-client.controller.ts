@@ -14,10 +14,10 @@ import { <%= classify(name) %>Service } from '../<%= lowerCase(name) %>.service'
 
 @Controller()
 export class <%= classify(name) %>ClientController {
-  constructor(private readonly <%= lowerCase(name) %>Service: <%= classify(name) %>Service) {}
+  constructor(private readonly <%= camelize(name) %>Service: <%= classify(name) %>Service) {}
 
   @Get()
   index() {
-    return this.<%= lowerCase(name) %>Service.test();
+    return this.<%= camelize(name) %>Service.test();
   }
 }
