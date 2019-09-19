@@ -5,6 +5,11 @@
       "description": "Schematic to generate a package containing a dynamic module.",
       "factory": "./lib/schematics/dynpkg/dynpkg.factory#main",
       "schema": "./lib/schematics/dynpkg/schema.json"
+    },
+    "dynmod": {
+      "description": "Schematic to generate a dynamic module.",
+      "factory": "./lib/schematics/dynmod/dynmod.factory#main",
+      "schema": "./lib/schematics/dynmod/schema.json"
     }
   }
 }

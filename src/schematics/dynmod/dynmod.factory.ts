@@ -17,7 +17,7 @@ import {
   DEFAULT_LANGUAGE,
   DEFAULT_VERSION,
 } from '../../defaults';
-import { DynPkgOptions } from './dynpkg.schema';
+import { DynModOptions } from './dynmod.schema';
 
 import {
   lowerCase,
@@ -25,13 +25,13 @@ import {
   dashToUnderscore,
 } from '../../utils/string-utils';
 
-export function main(options: DynPkgOptions): Rule {
+export function main(options: DynModOptions): Rule {
   options = transform(options);
   return mergeWith(generate(options));
 }
 
-function transform(options: DynPkgOptions): DynPkgOptions {
-  const target: DynPkgOptions = Object.assign({}, options);
+function transform(options: DynModOptions): DynModOptions {
+  const target: DynModOptions = Object.assign({}, options);
 
   target.author = !!target.author ? target.author : DEFAULT_AUTHOR;
   target.description = !!target.description
@@ -51,7 +51,7 @@ function transform(options: DynPkgOptions): DynPkgOptions {
   return target;
 }
 
-function generate(options: DynPkgOptions): Source {
+function generate(options: DynModOptions): Source {
   console.log('options.name: ', options.name);
   return apply(url(join('./files' as Path, options.language)), [
     filter(path => {
