@@ -1,38 +1,34 @@
 export interface DynModOptions {
   /**
-   * The Nest application name.
+   * The name of the module.
    */
   name: string;
   /**
-   * Should we generate a testing client?
+   * The path to create the module.
    */
-  client: boolean;
+  path?: string;
   /**
-   * The Nest application author.
+   * The path to insert the module declaration.
    */
-  author?: string;
+  module?: Path;
   /**
-   * The Nest application description.
+   * Directive to insert declaration in module.
    */
-  description?: string;
+  skipImport?: boolean;
   /**
-   * The Nest application version.
+   * Metadata name affected by declaration insertion.
    */
-  version?: string;
+  metadata?: string;
+  /**
+   * Nest element type name
+   */
+  type?: string;
   /**
    * Application language.
    */
   language?: string;
   /**
-   * The used package manager.
+   * The source root path
    */
-  packageManager?: 'npm' | 'yarn';
-  /**
-   * The Nest included production dependencies (comma separated values).
-   */
-  dependencies?: string;
-  /**
-   * The Nest included development dependencies (comma separated values).
-   */
-  devDependencies?: string;
+  sourceRoot?: string;
 }

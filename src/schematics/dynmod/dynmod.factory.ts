@@ -1,22 +1,26 @@
 import { join, Path, strings } from '@angular-devkit/core';
 import {
   apply,
-  filter,
+  branchAndMerge,
+  chain,
   mergeWith,
   move,
   Rule,
-  SchematicsException,
-  Source,
+  SchematicContext,
   template,
+  Tree,
   url,
 } from '@angular-devkit/schematics';
 
 import {
-  DEFAULT_AUTHOR,
-  DEFAULT_DESCRIPTION,
-  DEFAULT_LANGUAGE,
-  DEFAULT_VERSION,
-} from '../../defaults';
+  DeclarationOptions,
+  ModuleDeclarator,
+} from '../../utils/module.declarator';
+
+import { ModuleFinder } from '../../utils/module.finder';
+import { Location, NameParser } from '../../utils/name.parser';
+import { mergeSourceRoot } from '../../utils/source-root.helpers';
+
 import { DynModOptions } from './dynmod.schema';
 
 import {
@@ -27,48 +31,66 @@ import {
 
 export function main(options: DynModOptions): Rule {
   options = transform(options);
-  return mergeWith(generate(options));
+  return (tree: Tree, context: SchematicContext) => {
+    return branchAndMerge(
+      chain([
+        mergeSourceRoot(options),
+        addDeclarationToModule(options),
+        mergeWith(generate(options)),
+      ])
+    )(tree, context);
+  };
 }
 
 function transform(options: DynModOptions): DynModOptions {
   const target: DynModOptions = Object.assign({}, options);
 
-  target.author = !!target.author ? target.author : DEFAULT_AUTHOR;
-  target.description = !!target.description
-    ? target.description
-    : DEFAULT_DESCRIPTION;
-  target.language = !!target.language ? target.language : DEFAULT_LANGUAGE;
-  target.name = strings.dasherize(target.name);
-  target.version = !!target.version ? target.version : DEFAULT_VERSION;
+  target.metadata = 'imports';
+  target.type = 'module';
 
-  target.packageManager = !!target.packageManager
-    ? target.packageManager
-    : 'npm';
-  target.dependencies = !!target.dependencies ? target.dependencies : '';
-  target.devDependencies = !!target.devDependencies
-    ? target.devDependencies
-    : '';
+  const location: Location = new NameParser().parse(target);
+  target.name = strings.dasherize(location.name);
+  target.path = join(strings.dasherize(location.path) as Path, target.name);
+  target.language = 'ts';
   return target;
 }
 
-function generate(options: DynModOptions): Source {
-  console.log('options.name: ', options.name);
-  return apply(url(join('./files' as Path, options.language)), [
-    filter(path => {
-      if (!options.client) {
-        return (
-          !path.startsWith(`/src/__name__-client`) && !path.endsWith('main.ts')
-        );
-      }
-      return true;
-    }),
-    template({
-      ...strings,
-      ...options,
-      lowerCase,
-      upperCase,
-      dashToUnderscore,
-    }),
-    move(options.name),
-  ]);
+function generate(options: DynModOptions) {
+  return (context: SchematicContext) =>
+    apply(url(join('./files' as Path, options.language)), [
+      template({
+        ...strings,
+        ...options,
+        lowerCase,
+        upperCase,
+        dashToUnderscore,
+      }),
+      move(options.path),
+    ])(context);
+}
+
+function addDeclarationToModule(options: DynModOptions): Rule {
+  return (tree: Tree) => {
+    if (options.skipImport !== undefined && options.skipImport) {
+      return tree;
+    }
+    options.module = new ModuleFinder(tree).find({
+      name: options.name,
+      path: options.path as Path,
+    });
+    if (!options.module) {
+      return tree;
+    }
+    const content = tree.read(options.module).toString();
+    const declarator: ModuleDeclarator = new ModuleDeclarator();
+    // for now, we'll pass in staticOptions using the `register()` method
+    // with no default options
+    const staticOptions = { name: 'register', value: {} };
+    const declarationOptions = Object.assign({ staticOptions }, options);
+    tree.overwrite(
+      options.module,
+      declarator.declare(content, declarationOptions as DeclarationOptions)
+    );
+    return tree;
+  };
 }
