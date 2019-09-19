@@ -14,7 +14,8 @@
     "access": "public"
   },
   "scripts": {
-    "build": "rm -rf lib && tsc -p tsconfig.json && mkdir lib && cp -ar ./src/lib/* lib && rm -rf utils && mkdir utils && cp -ar ./src/utils/* utils"
+    "build": "rm -rf lib && tsc -p tsconfig.json && npm run move",
+    "move": "mkdir lib && cp -ar ./src/schematics/* lib && rm -rf utils && mkdir utils && cp -ar ./src/utils/* utils"
   },
   "repository": {
     "type": "git",
