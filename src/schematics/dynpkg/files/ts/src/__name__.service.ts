@@ -1,6 +1,7 @@
 // tslint:disable: variable-name
 import { Injectable, Inject, Logger } from '@nestjs/common';
 import { <%= dashToUnderscore(upperCase(name)) %>_OPTIONS} from './constants';
+import { <%= classify(name) %>Options } from './interfaces';
 
 /**
  * Sample interface for <%= classify(name) %>Service
@@ -26,7 +27,7 @@ interface I<%= classify(name) %>Service {
 export class <%= classify(name) %>Service implements I<%= classify(name) %>Service {
   private readonly logger: Logger;
   constructor(
-    @Inject(<%= dashToUnderscore(upperCase(name)) %>_OPTIONS) private _<%= classify(name) %>Options,
+    @Inject(<%= dashToUnderscore(upperCase(name)) %>_OPTIONS) private _<%= classify(name) %>Options: <%= classify(name) %>Options,
   ) {
     this.logger = new Logger('<%= classify(name) %>Service');
     this.logger.log(`Options: ${JSON.stringify(this._<%= classify(name) %>Options)}`);

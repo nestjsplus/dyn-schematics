@@ -52,7 +52,6 @@ function transform(options: DynPkgOptions): DynPkgOptions {
 }
 
 function generate(options: DynPkgOptions): Source {
-  console.log('options.name: ', options.name);
   return apply(url(join('./files' as Path, options.language)), [
     filter(path => {
       if (!options.client) {
