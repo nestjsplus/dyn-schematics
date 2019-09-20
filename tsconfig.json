@@ -4,11 +4,11 @@
     "target": "es2017",
     "typeRoots": ["node_modules/@types"],
     "declaration": true,
-    "rootDir": "./src",
+    "rootDir": "./lib",
     "baseUrl": "./",
     "noLib": false,
     "skipLibCheck": true
   },
-  "include": ["src/**/*.ts"],
-  "exclude": ["node_modules", "src/**/*.test.ts", "src/**/files/**"]
+  "include": ["lib/**/*.ts"],
+  "exclude": ["node_modules", "src/**/*.test.ts", "lib/**/files/**"]
 }

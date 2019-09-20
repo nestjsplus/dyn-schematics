@@ -7,15 +7,14 @@
   "main": "index.js",
   "files": [
     "lib/**/*",
-    "utils/**/*",
     "collection.json"
   ],
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json && npm run move",
-    "move": "rm -rf lib && mkdir -p lib/schematics && cp -ar ./src/schematics/* lib/schematics && mkdir -p lib/utils && cp -ar ./src/utils/* lib/utils && cp ./src/defaults.js lib"
+    "build": "npm run move && tsc -p tsconfig.json",
+    "move": "rm -rf lib && mkdir -p lib/schematics && cp -ar ./src/schematics/* lib/schematics && mkdir -p lib/utils && cp -ar ./src/utils/* lib/utils && cp ./src/defaults.ts lib"
   },
   "repository": {
     "type": "git",
