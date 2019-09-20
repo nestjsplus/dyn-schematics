@@ -1,6 +1,6 @@
 {
   "name": "@nestjsplus/dyn-schematics",
-  "version": "1.0.7",
+  "version": "1.0.11",
   "description": "NestJS Dynamic Module Schematics for @nestjs/cli",
   "author": "John Biundo <johnfbiundo@gmail.com>",
   "license": "MIT",
@@ -14,7 +14,8 @@
   },
   "scripts": {
     "build": "npm run move && tsc -p tsconfig.json",
-    "move": "rm -rf lib && mkdir -p lib/schematics && cp -ar ./src/schematics/* lib/schematics && mkdir -p lib/utils && cp -ar ./src/utils/* lib/utils && cp ./src/defaults.ts lib"
+    "move": "rm -rf lib && mkdir -p lib/schematics && cp -ar ./src/schematics/* lib/schematics && mkdir -p lib/utils && cp -ar ./src/utils/* lib/utils && cp ./src/defaults.ts lib",
+    "prepare": "npm run build"
   },
   "repository": {
     "type": "git",
