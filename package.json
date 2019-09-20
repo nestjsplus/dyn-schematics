@@ -1,6 +1,6 @@
 {
   "name": "@nestjsplus/dyn-schematics",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "NestJS Dynamic Module Schematics for @nestjs/cli",
   "author": "John Biundo <johnfbiundo@gmail.com>",
   "license": "MIT",
