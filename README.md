@@ -112,9 +112,12 @@ The files in the project have comments that should help guide you.
 
 #### More help
 
-You can also refer to [this article](https://dev.to/nestjs/advanced-nestjs-how-to-build-completely-dynamic-nestjs-modules-1370) for details on the concepts behind the *dynamic module pattern*.
+You can also refer to these articles:
 
-In the near future, I'll publish a tutorial on [dev.to](https://dev.to/johnbiundo) which will walk through an end-to-end process of generating and customizing a dynamic module using the `dynpkg` schematic.  The tutorial is near completion, so is likely available by the time you read this.
+[How to build completely dynamic NestJS mdoules](https://dev.to/nestjs/advanced-nestjs-how-to-build-completely-dynamic-nestjs-modules-1370) - for details on the concepts behind the *dynamic module pattern*.
+
+[Built a NestJS module for Knex.js in 5 minutes](https://dev.to/nestjs/build-a-nestjs-module-for-knex-js-or-other-resource-based-libraries-in-5-minutes-12an) - an end-to-end tutorial on using these schematics.
+
 
 ### Change Log
 
