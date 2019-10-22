@@ -37,6 +37,7 @@ export class <%= classify(name) %>Module {
   ): DynamicModule {
     return {
       module: <%= classify(name) %>Module,
+      imports: options.imports || [],
       providers: [
         ...this.createProviders(options),
       ],
